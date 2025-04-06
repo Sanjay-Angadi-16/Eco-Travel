@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eco Travel</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-section { display: none; }
+    .active { display: block; }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    form input,
+    form textarea,
+    form button {
+      width: 60%;
+      max-width: 400px;
+      margin: 0.5rem 0;
+    }
+    #chatbot {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 200px;
+      max-height: 250px;
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-size: 12px;
+      z-index: 1000;
+    }
+    #chatlog {
+      height: 120px;
+      overflow-y: auto;
+      background: white;
+      padding: 4px;
+      margin-bottom: 4px;
+      border: 1px solid #ccc;
+    }
+    #userInput {
+      width: 100%;
+      margin-bottom: 4px;
+    }
+    #chatbot button {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Eco Travel</h1>
+    <nav>
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('about')">About Us</a>
+      <a href="#" onclick="showPage('contact')">Contact Us</a>
+      <a href="#" onclick="showPage('login')">Login</a>
+    </nav>
+    <div id="google_translate_element"></div>
+  </header>
+
+  <div class="container">
+    <div id="home" class="page-section active">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');"></div>
+      <section>
+        <h2>Welcome to Eco Travel</h2>
+        <p>
+          Promoting responsible tourism that protects the environment and supports
+          local communities. Discover eco-friendly destinations and travel tips to
+          help you make a positive impact.
+        </p>
+        <div id="map">[Google Map would load here with a valid API key]</div>
+      </section>
+    </div>
+
+    <div id="about" class="page-section">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee');"></div>
+      <section>
+        <h2>About Us</h2>
+        <p>
+          Eco Travel is a platform committed to promoting eco-friendly tourism, protecting the planet, and uplifting local communities. We believe in traveling with a purpose—supporting local economies, reducing environmental footprints, and respecting cultural heritage.
+        </p>
+        <p>
+          Our mission is to inspire responsible travel choices that make a positive impact on both the people and the places we visit.
+        </p>
+      </section>
+    </div>
+
+    <div id="contact" class="page-section">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4');"></div>
+      <section>
+        <h2>Contact Us</h2>
+        <p>If you have any questions or would like to get involved with our mission, please reach out!</p>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </div>
+
+    <div id="login" class="page-section">
+      <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d');"></div>
+      <section>
+        <h2>Login</h2>
+        <form>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+
+          <button type="submit">Login</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 Eco Travel. All rights reserved.</p>
+  </div>
+
+  <div id="chatbot">
+    <div id="chatlog"></div>
+    <input type="text" id="userInput" placeholder="Ask something..." />
+    <button onclick="sendToChatbot()">Send</button>
+  </div>
+
+  <script>
+    function googleTranslateElementInit() {
+      document.getElementById("google_translate_element").innerText =
+        "[Google Translate would load here]";
+    }
+
+    function sendToChatbot() {
+      const input = document.getElementById("userInput");
+      const message = input.value;
+      input.value = "";
+      const chatlog = document.getElementById("chatlog");
+      chatlog.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+      setTimeout(() => {
+        const mockReply =
+          "Thanks for your question! We're passionate about sustainable tourism. 🌱";
+        chatlog.innerHTML += `<p><strong>Bot:</strong> ${mockReply}</p>`;
+        chatlog.scrollTop = chatlog.scrollHeight;
+      }, 500);
+    }
+
+    function showPage(pageId) {
+      const pages = document.querySelectorAll('.page-section');
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+  </script>
+</body>
+</html>
